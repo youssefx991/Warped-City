@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dt0rfl7dfwnvs"]
+[gd_scene load_steps=8 format=3 uid="uid://dt0rfl7dfwnvs"]
 
+[ext_resource type="Script" path="res://Bullet/bullet.gd" id="1_ke634"]
 [ext_resource type="Texture2D" uid="uid://b6yfvr6wvv3jr" path="res://Bullet/Assets/player-shoot1.png" id="1_s42q5"]
 [ext_resource type="Texture2D" uid="uid://cxhna1nhq0agw" path="res://Bullet/Assets/player-shoot2.png" id="2_7yvqj"]
 [ext_resource type="Texture2D" uid="uid://b5sqqo386xkhl" path="res://Bullet/Assets/player-shoot3.png" id="3_5ajod"]
@@ -29,13 +30,18 @@ animations = [{
 size = Vector2(5, 6)
 
 [node name="Bullet" type="Area2D"]
+script = ExtResource("1_ke634")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_8ccpl")
 animation = &"Shot"
-frame_progress = 0.219925
+frame_progress = 0.871257
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(7.5, 0)
 shape = SubResource("RectangleShape2D_a8rwo")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-14, 5.68434e-14)
+scale = Vector2(0.35, 0.2)
