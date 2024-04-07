@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://hqfnafaag1yy"]
+[gd_scene load_steps=64 format=3 uid="uid://hqfnafaag1yy"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_23j4b"]
 [ext_resource type="Texture2D" uid="uid://ybuj4p5pp2fi" path="res://Player/Assets/idle.png" id="1_hn53c"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://5ae37ytbaptl" path="res://Player/Assets/walk.png" id="8_5knix"]
 [ext_resource type="Texture2D" uid="uid://bvx7sidkdtrm5" path="res://Player/Assets/run.png" id="8_pffyl"]
 [ext_resource type="Script" path="res://Player/player_area.gd" id="11_shcax"]
+[ext_resource type="Script" path="res://Player/health_label.gd" id="12_kmk64"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhk4c"]
 atlas = ExtResource("1_n323x")
@@ -431,4 +432,13 @@ script = ExtResource("11_shcax")
 position = Vector2(0, -21.5)
 shape = SubResource("RectangleShape2D_kdoom")
 
+[node name="health_label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -75.0
+offset_right = 24.0
+offset_bottom = -52.0
+text = "HEALTH"
+script = ExtResource("12_kmk64")
+
+[connection signal="say_health" from="." to="health_label" method="_on_player_say_health"]
 [connection signal="area_entered" from="player_area" to="." method="_on_player_area_area_entered"]

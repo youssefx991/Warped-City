@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var health = 100
+signal say_health(health)
 
 const SPEED = 170.0
 const JUMP_VELOCITY = -450.0
@@ -17,6 +19,8 @@ var is_shooting = false
 
 var bullet_direction = 0
 
+func _ready():
+	say_health.emit(health)
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -91,6 +95,8 @@ func reset_player_position():
 	# used only for demonstration purposes.
 	if global_position.y > 500:
 		global_position = Vector2(100, 100)
+		health -= 20
+		say_health.emit(health)
 
 
 func _on_player_area_area_entered(area):
@@ -99,4 +105,5 @@ func _on_player_area_area_entered(area):
 		print("bullet entered")	
 		if area.shooter == "Enemy":
 			print("drone bullet entered")
-			#global_position = Vector2(100, 100)
+			health -= 10
+			say_health.emit(health)
