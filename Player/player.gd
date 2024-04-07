@@ -15,19 +15,34 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # player animations
 var is_crouching = false
 var is_shooting = false
-
+var is_climbing = false
 
 var bullet_direction = 0
 
 func _ready():
 	say_health.emit(health)
 func _physics_process(delta):
+	
+	
+	if is_climbing:
+		velocity.y = 0
+		
+		if Input.is_action_pressed("ui_up"):
+			velocity.y = -SPEED
+			animated_sprite_2d.play("climb")
+		elif Input.is_action_pressed("ui_down"):
+			velocity.y = SPEED
+			animated_sprite_2d.play("climb")
+		else:
+			animated_sprite_2d.stop()
+	
+	
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not is_climbing:
 		velocity.y += gravity * delta
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() :
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction (input_axis) and handle the movement/deceleration.
@@ -37,6 +52,8 @@ func _physics_process(delta):
 		velocity.x = input_axis * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	# player climbing
 	
 	# Player Crouching
 	if Input.is_action_pressed("ui_down") and is_on_floor():
@@ -59,6 +76,7 @@ func _physics_process(delta):
 
 func update_animations(input_axis):
 	
+	
 	if input_axis > 0:
 		animated_sprite_2d.flip_h = false
 		bullet_direction = 1
@@ -77,7 +95,9 @@ func update_animations(input_axis):
 		else:
 			animated_sprite_2d.play("idle")
 	else:
-		if velocity.y > 0 or is_shooting:
+		if is_climbing:
+			animated_sprite_2d.play("climb")
+		elif velocity.y > 0 or is_shooting:
 			animated_sprite_2d.play("fall")
 		else:
 			animated_sprite_2d.play("jump")

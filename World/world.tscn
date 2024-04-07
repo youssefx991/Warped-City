@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://blpybx7qw7o0f"]
+[gd_scene load_steps=22 format=3 uid="uid://blpybx7qw7o0f"]
 
 [ext_resource type="PackedScene" uid="uid://3sksd0fw621u" path="res://World/parallax_background.tscn" id="1_wdto1"]
 [ext_resource type="PackedScene" uid="uid://d2ui8uq6c7eit" path="res://Vehicles/vehicle_police.tscn" id="2_nn4x7"]
@@ -19,6 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://bjikii6w8362r" path="res://World/props/control-box-3.png" id="14_qoaig"]
 [ext_resource type="Texture2D" uid="uid://b2jn7ctbrn6sw" path="res://World/props/hotel-sign.png" id="15_i5crx"]
 [ext_resource type="AudioStream" uid="uid://d2qgefq70aowe" path="res://Music/cyber_runner.ogg" id="19_njbjp"]
+[ext_resource type="Script" path="res://World/Ladder.gd" id="20_ockcj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkkss"]
+size = Vector2(100, 339)
 
 [node name="World" type="Node2D"]
 
@@ -106,7 +110,7 @@ position = Vector2(656, 4)
 position = Vector2(972, 99)
 
 [node name="Player" parent="." instance=ExtResource("3_36ie2")]
-position = Vector2(46, 213)
+position = Vector2(1324, 220)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 limit_left = 0
@@ -117,3 +121,15 @@ limit_bottom = 240
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_njbjp")
 autoplay = true
+
+[node name="Ladder" type="Area2D" parent="."]
+position = Vector2(1229, 161)
+script = ExtResource("20_ockcj")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder"]
+position = Vector2(-2, -110.5)
+shape = SubResource("RectangleShape2D_gkkss")
+
+[connection signal="area_entered" from="Ladder" to="Ladder" method="_on_area_entered"]
+[connection signal="area_exited" from="Ladder" to="Ladder" method="_on_area_exited"]
