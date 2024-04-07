@@ -73,15 +73,17 @@ func update_animations(input_axis):
 		else:
 			animated_sprite_2d.play("idle")
 	else:
-		if velocity.y > 0:
+		if velocity.y > 0 or is_shooting:
 			animated_sprite_2d.play("fall")
 		else:
 			animated_sprite_2d.play("jump")
 	
 func shoot_bullet():
 	var current_bullet = bullet.instantiate()
-	current_bullet.direction = bullet_direction
+	current_bullet.shooter = "Player"
+	current_bullet.direction = Vector2(bullet_direction, 0)
 	current_bullet.global_position = bullet_position.global_position
+	
 	get_parent().add_child(current_bullet)
 	
 	
