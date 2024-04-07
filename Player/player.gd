@@ -91,3 +91,12 @@ func reset_player_position():
 	# used only for demonstration purposes.
 	if global_position.y > 500:
 		global_position = Vector2(100, 100)
+
+
+func _on_player_area_area_entered(area):
+	print("area entered")
+	if area.is_in_group("Bullet"):
+		print("bullet entered")	
+		if area.shooter == "Enemy":
+			print("drone bullet entered")
+			#global_position = Vector2(100, 100)

@@ -1,10 +1,7 @@
 extends Area2D
 
-var direction = -1
-var speed = 80
-
 @onready var bullet = preload("res://Bullet/bullet.tscn")
-#(30, 10)	(-30, 10)
+#(15, -8)	(-15, -8)
 @onready var bullet_position = $bullet_position
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
@@ -12,27 +9,16 @@ var speed = 80
 var found_near_player = false
 var near_player = null
 
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	global_position.x += speed * delta * direction
-	
-	
-	
-	
-	
-func turn_around():
-	direction *= -1
+	pass
 
 
-func handle_near_player(area):
-	if area.global_position.x > global_position.x: # drone <-> player
-		
-			bullet_position.position.x = 30
-			shoot_at(1)
-	elif area.global_position.x < global_position.x: # player <-> drone
-		
-			bullet_position.position.x = -30
-			shoot_at(-1)
-			
 func _on_area_entered(area):
 	if area.is_in_group("Bullet"):
 		if area.shooter == "Player":
@@ -44,7 +30,6 @@ func _on_shoot_area_area_entered(area):
 		found_near_player = true
 		near_player = area
 		
-		
 func shoot_at(player):
 	var current_bullet = bullet.instantiate()
 	current_bullet.shooter = "Enemy"
@@ -52,8 +37,6 @@ func shoot_at(player):
 	current_bullet.global_position = bullet_position.global_position
 	get_parent().add_child(current_bullet)
 	#print("SHOOOOOOOOOOOOOOOOting")
-
-
 
 
 func _on_shoot_area_area_exited(area):
@@ -65,3 +48,13 @@ func _on_shoot_area_area_exited(area):
 func _on_timer_timeout():
 	if found_near_player:
 		handle_near_player(near_player)
+		
+func handle_near_player(area):
+	if area.global_position.x > global_position.x: # drone <-> player
+		
+			bullet_position.position.x = 30
+			shoot_at(1)
+	elif area.global_position.x < global_position.x: # player <-> drone
+		
+			bullet_position.position.x = -30
+			shoot_at(-1)

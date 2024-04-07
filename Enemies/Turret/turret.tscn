@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dp4eet13bkkd8"]
+[gd_scene load_steps=12 format=3 uid="uid://dp4eet13bkkd8"]
 
 [ext_resource type="Texture2D" uid="uid://1d0k5mdn4ksa" path="res://Enemies/Turret/turret-preview.png" id="1_eq3y1"]
+[ext_resource type="Script" path="res://Enemies/Turret/turret.gd" id="1_tneem"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v58w0"]
 atlas = ExtResource("1_eq3y1")
@@ -67,9 +68,38 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0shw"]
+size = Vector2(16, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ty7ve"]
+size = Vector2(198, 20)
+
 [node name="Turret" type="Area2D"]
+script = ExtResource("1_tneem")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lnlfq")
 autoplay = "default"
-frame_progress = 0.0560749
+frame_progress = 0.594729
+
+[node name="death_area" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_g0shw")
+
+[node name="bullet_position" type="Marker2D" parent="."]
+position = Vector2(15, -8)
+
+[node name="shoot_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shoot_area"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_ty7ve")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="shoot_area" to="." method="_on_shoot_area_area_entered"]
+[connection signal="area_exited" from="shoot_area" to="." method="_on_shoot_area_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
