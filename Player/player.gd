@@ -14,6 +14,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_crouching = false
 var is_shooting = false
 
+
 var bullet_direction = 0
 
 func _physics_process(delta):
@@ -42,7 +43,7 @@ func _physics_process(delta):
 		bullet_position.position.y = -42
 	
 	# Player Shooting
-	if Input.is_action_just_pressed("shoot") and is_on_floor():
+	if Input.is_action_just_pressed("shoot") and velocity.y >= 0:
 		is_shooting = true
 		shoot_bullet()
 	if Input.is_action_just_released("shoot"):
