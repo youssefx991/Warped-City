@@ -413,11 +413,11 @@ collision_layer = 0
 script = ExtResource("1_23j4b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -34)
+position = Vector2(0, -33)
 sprite_frames = SubResource("SpriteFrames_si5oi")
-animation = &"shoot"
+animation = &"hurt"
 autoplay = "idle"
-frame_progress = 0.576908
+frame_progress = 0.45227
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -21.5)
@@ -441,5 +441,11 @@ offset_bottom = -52.0
 text = "HEALTH"
 script = ExtResource("12_kmk64")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [connection signal="say_health" from="." to="health_label" method="_on_player_say_health"]
 [connection signal="area_entered" from="player_area" to="." method="_on_player_area_area_entered"]
+[connection signal="area_exited" from="player_area" to="." method="_on_player_area_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

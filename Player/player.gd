@@ -16,6 +16,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_crouching = false
 var is_shooting = false
 var is_climbing = false
+var is_hurt = false
 
 var bullet_direction = 0
 
@@ -85,7 +86,10 @@ func update_animations(input_axis):
 		animated_sprite_2d.flip_h = true
 		bullet_direction = -1
 		bullet_position.position.x = -27
-	if  is_on_floor():
+		
+	if is_hurt:
+		animated_sprite_2d.play("hurt")
+	elif  is_on_floor():
 		if is_crouching:
 			animated_sprite_2d.play("crouch")	
 		elif is_shooting:
@@ -125,5 +129,17 @@ func _on_player_area_area_entered(area):
 		print("bullet entered")	
 		if area.shooter == "Enemy":
 			print("drone bullet entered")
+			is_hurt = true
 			health -= 10
 			say_health.emit(health)
+
+
+func _on_player_area_area_exited(area):
+	if area.is_in_group("Bullet"):
+		if area.shooter == "Enemy":
+			
+			area.queue_free()
+
+
+func _on_timer_timeout():
+	is_hurt = false
