@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://7f4u6vr2rqgn"]
+
+[ext_resource type="Script" path="res://Wasted_Menu/wasted_menu.gd" id="1_0q3o3"]
+
+[node name="Wasted_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0q3o3")
+
+[node name="game_over_label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 154.0
+offset_top = 45.0
+offset_right = 241.0
+offset_bottom = 68.0
+text = "Game Over"
+
+[node name="try_again_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 82.0
+offset_right = 237.0
+offset_bottom = 113.0
+text = "Try Again"
+
+[node name="exit_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 126.0
+offset_right = 216.0
+offset_bottom = 157.0
+text = "Quit
+"
+
+[connection signal="pressed" from="try_again_button" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="exit_button" to="." method="_on_exit_button_pressed"]
