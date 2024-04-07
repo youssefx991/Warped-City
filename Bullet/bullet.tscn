@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dt0rfl7dfwnvs"]
+
+[ext_resource type="Texture2D" uid="uid://b6yfvr6wvv3jr" path="res://Bullet/Assets/player-shoot1.png" id="1_s42q5"]
+[ext_resource type="Texture2D" uid="uid://cxhna1nhq0agw" path="res://Bullet/Assets/player-shoot2.png" id="2_7yvqj"]
+[ext_resource type="Texture2D" uid="uid://b5sqqo386xkhl" path="res://Bullet/Assets/player-shoot3.png" id="3_5ajod"]
+[ext_resource type="Texture2D" uid="uid://bo33ubfybdc82" path="res://Bullet/Assets/player-shoot4.png" id="4_nvxfh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8ccpl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s42q5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7yvqj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5ajod")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nvxfh")
+}],
+"loop": true,
+"name": &"Shot",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8rwo"]
+size = Vector2(5, 6)
+
+[node name="Bullet" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_8ccpl")
+animation = &"Shot"
+frame_progress = 0.219925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.5, 0)
+shape = SubResource("RectangleShape2D_a8rwo")
