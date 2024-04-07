@@ -29,7 +29,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8rwo"]
 size = Vector2(5, 6)
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="Area2D" groups=["Bullet"]]
 script = ExtResource("1_ke634")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
